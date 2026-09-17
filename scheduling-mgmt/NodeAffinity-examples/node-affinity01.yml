@@ -1,0 +1,31 @@
+# Deployment with node affinity example file
+# To set a label on a node, run: kubectl label nodes <node> <key>=<value>
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-deployment
+  labels:
+    type: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend
+  template:
+    metadata:
+      labels:
+        type: frontend
+    spec:
+      affinity:           # nodeAffinity is set in the same spec section where container image is defined
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:     # Can also use preferredDuringScheduling... here
+            nodeSelectorTerms:
+              - matchExpressions:       # This is where the label(s) set on the node are matched
+                  - key: color
+                    operator: Equals    # Can also use 'Exists' here for some cases
+                    values:
+                      - blue
+      containers:
+        - name: nginx
+          image: nginx
+

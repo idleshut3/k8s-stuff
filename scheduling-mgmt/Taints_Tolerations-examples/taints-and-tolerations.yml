@@ -1,0 +1,21 @@
+# Generic pod definition, to explain taints and tolerances
+apiVersion: v1
+kind: Pod
+metadata:
+  name: some-pod
+spec:
+  containers:
+    - name: some-container
+      image: some-image
+
+  # Taints can be set on a node with this command:
+  # kubectl taint nodes <node-name> <key>=<value>:<taint-effect>
+  # Taints can also be removed with a trailing dash, such as:
+  # kubectl taint nodes <node-name> <key>=<value>:<taint-effect>-
+
+  # This is where the tolerations for the pod are set, which allows it to bypass the taint on the node
+  tolerations:
+    - key: "key"            # Matches the key set in the taint
+      operator: "Equals"    # There are 4 operators - Equals, Exists, Gt, and Lt
+      value: "value"        # Matches the value set in the taint
+      effect: "NoSchedule"  # There are 3 effects - NoSchedule, PreferNoSchedule, and NoExecute

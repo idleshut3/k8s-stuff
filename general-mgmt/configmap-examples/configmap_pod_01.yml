@@ -1,0 +1,14 @@
+# This is an example of using a ConfigMap in an pod. 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-webapp
+spec:
+  containers:
+    - name: my-webapp-01
+      image: my-cr/webapp:v0.0.1
+      ports:
+        - containerPort: 8080
+      envFrom:
+        - configMapRef:
+            name: my-app      # This name must match an existing ConfigMap, and will pass the ENV vars from it.

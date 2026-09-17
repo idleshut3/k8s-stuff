@@ -1,0 +1,15 @@
+# This is an example of multi-container pods, using an init container alongside the main one.
+# This init container runs on startup, performs some action and exits, followed by the main container starting.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-ct-pod
+spec:
+  containers:
+    - name: main-ct
+      image: main-ct-image
+
+  initContainers:         # This is where init container(s) are specified. Multiple can be defined.
+    - name: init-ct-01
+      image: init-ct-image
+      command: 'some-prestart-check.sh'   # Or whatever you need to run beforehand

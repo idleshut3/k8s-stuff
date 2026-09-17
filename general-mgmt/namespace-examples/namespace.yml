@@ -1,0 +1,5 @@
+# Example namespace definition file
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev			# You can also include 'namespace: <name>' in the metadata of other resource definition files to place it in the namespace

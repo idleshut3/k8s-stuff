@@ -1,0 +1,16 @@
+# Example k8s pod definition file
+
+apiVersion: v1		# Mandatory - defines the api version
+
+kind: Pod			# Mandatory - defines the resource type
+
+metadata:			# Mandatory - only accepts 'name' and 'labels' as child parameters
+  name: nginx-pod	# Optional (I think)
+  labels:			# Optional (I think)
+    app: nginx		# Optional - keys under 'labels' can have any name, and are useful for grouping resources
+    type: frontend	# Optional
+
+spec:				# Mandatory - defines the container specs
+  containers:		# Mandatory
+    - name: nginx	# Mandatory
+      image: nginx	# Mandatory

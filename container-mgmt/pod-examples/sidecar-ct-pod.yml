@@ -1,0 +1,17 @@
+# This is an example of a sidecar container in a pod 
+# This container continues to run alongside the main container for the life of the pod, unlike an init container
+# Commonly used for a logging container, running separately from the main application
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-pod
+spec:
+  containers:
+    - name: main-ct
+      image: main-ct-image
+
+  initContainers:      # This is where sidecar container(s) are specified. The top level field is the same as init containers.
+    - name: sidecar-ct
+      image: sidecar-ct-image
+      command: 'start-logging.sh'
+      restartPolicy: Always

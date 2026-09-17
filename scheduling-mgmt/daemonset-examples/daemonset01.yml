@@ -1,0 +1,17 @@
+# Example defintion file of a daemonset
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: elasticsearch-ds
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      app: fluentd
+    spec:
+      containers:
+        - name: fluentd01
+          image: fluentd-elasticsearch:latest
+

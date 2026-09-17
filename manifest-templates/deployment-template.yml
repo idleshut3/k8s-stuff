@@ -1,0 +1,32 @@
+# Template file for kubernetes deployments
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 
+  labels:
+    app: 
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: 
+  template:
+    metadata:
+      labels:
+        app: 
+    spec:
+      containers:
+      - name: 
+        image: 
+        ports:
+        - containerPort:
+  strategy:
+    type: RollingUpdate
+    
+    # If type is Recreate, remove the fields below
+    rollingUpdate:
+
+      # You do not need to use both fields below simultaneously. You can use one or the other depending on your need.
+      maxSurge:
+      maxUnavailable:
+

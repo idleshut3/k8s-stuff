@@ -1,0 +1,25 @@
+# Template file for kubernetes replicasets
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: 
+  labels:
+    app: 
+    tier: 
+spec:
+  # modify replicas according to your case
+  replicas: 
+  selector:
+    # This label must match the label in the template section.
+    matchLabels:
+      tier: 
+
+  template:
+    metadata:
+      labels:
+        tier: 
+    spec:
+      containers:
+      - name: 
+        image: 
+

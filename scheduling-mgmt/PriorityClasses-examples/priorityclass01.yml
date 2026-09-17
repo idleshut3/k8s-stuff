@@ -1,0 +1,19 @@
+# Example Priority Class definition file
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority       # This label is used in pod definition files
+value: 100000               # This value sets priority. Higher = more important, and vice versa
+description: "Priority class for mission critical pods" # Optional field
+preemptionPolicy: PreemptLowerPriority  # This setting evicts lower priority nodes if there aren't enough resources for both. Use 'Never' to prevent evictions
+
+# To set the default priority value, add 'globalDefault: true'. The standard default in k8s is 0, and only one priority class can have this setting
+# To use the class in a pod definition, add the field 'priorityClassName: <priority-class>' in a pod spec. Like this:
+# ...
+# spec:
+#   containers:
+#     - name: nginx
+#       image: nginx:latest
+#       port:
+#         - containerPort: 8080
+#   priorityClassName: high-priority

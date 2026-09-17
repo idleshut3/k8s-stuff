@@ -1,0 +1,30 @@
+# Example k8s Deployment definition file
+
+apiVersion: apps/v1				# Mandatory - defines the api version
+
+kind: Deployment				# Mandatory - defines the resource type, nearly identical to replicaset aside from this
+
+metadata:						# Mandatory - accepts name and label as keys, like pods
+  name: nginx-deployment
+  labels:
+    app: nginx-app-deployment
+    type: frontend-deployment
+
+spec:							# Mandatory - slightly different than pod spec
+  replicas: 3					# This example shows you can put this at the top of spec instead of the bottom. Also works with replicasets
+  selector:
+    matchLabels:
+      type: frontend
+ 
+  template:						# Mandatory - we basically define the pod spec in here, excluding the apiVersion and kind 
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-app
+        type: frontend
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+
+  

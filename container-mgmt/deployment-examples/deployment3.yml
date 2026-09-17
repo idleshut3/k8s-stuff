@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: some-deploy
+  labels:
+    type: deploy3
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: some-app
+  template:
+    metadata:
+      app: some-app
+    spec:
+      containers:
+        - name: some-container
+          image: app3-image
+

@@ -1,0 +1,22 @@
+# HPA (Horizontal Pod Autoscaler) is a tool to scale pods in a deployment, replicaset, or statefulset
+# Note that the spec.replicas field should be removed from manifests using HPA, as HPA alone should manage replicas
+# For more detailed examples, see https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+apiVersion: apps/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-app-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app        # This is the name of the corresponding deployment
+  minReplicas: 1
+  maxReplicas: 10
+  # This is just an example. There are many possible configurations for this section.
+  metrics:              # Note that this requires the metrics server to be installed
+    - type: Resource    # Note that the pod spec must have the resource requests/limits defined for HPA to assess its workload
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

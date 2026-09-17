@@ -1,0 +1,28 @@
+# Example k8s replicaset definition file
+
+apiVersion: apps/v1				# Mandatory - defines the api version
+
+kind: ReplicaSet				# Mandatory - defines the resource type
+
+metadata:						# Mandatory - accepts name and label as keys, like pods
+  name: nginx-rs
+  labels:
+    type: frontend
+
+spec:
+  replicas: 3					# This defines the number of replicas
+  selector:						# Defines the labels to be managed by the replicaset. Note that this spec will match any pod with the label, even if launched separately.
+    matchLabels:
+      type: frontend
+      
+  template:						# We basically define the pod spec in here, excluding the apiVersion and kind 
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-app
+        type: frontend
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+

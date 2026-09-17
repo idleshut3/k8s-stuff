@@ -1,0 +1,19 @@
+# Example NodePort Service definition file
+
+apiVersion: v1				# Mandatory
+
+kind: Service				# Mandatory
+
+metadata:					# Mandatory
+  name: myapp-service		# Not sure
+
+spec:						# Mandatory
+  type: NodePort			# Mandatory - defines the service type
+  ports:					# Mandatory - defines the mapping between the node, service, and container
+    - targetPort: 80		# *Optional - technically. If ommitted, it will default to the value of 'port'. Represents the Pod's app port
+      port: 80				# Mandatory - port on the service that acts as a virtual server for the cluster
+      nodePort: 30001		# Optional - external port to open. If ommitted, k8s automatically assigns one between 30000-32767
+
+  selector:					# Mandatory - this is how the service is mapped to the app running in the cluster
+    app: myapp				# These are examples, which come from the pod metadata section. This is how the service maps to the right pods
+    type: frontend

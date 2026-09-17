@@ -1,0 +1,15 @@
+# Generic multi-container pod definition file, aka co-located containers
+# Note that this pattern is not commonly used, as far as I know
+# The startup order of containers in this pod is not configurable
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-ct-pod
+spec:
+  containers:    # Each container is an element of an array
+    - name: container-01
+      image: container-01-image
+      port:
+        - containerPort: 8080
+    - name: container-02
+      image: container-02-image

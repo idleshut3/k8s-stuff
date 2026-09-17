@@ -1,0 +1,12 @@
+# Example ConfigMap definition file. Used to pass ENV vars into pods in a declarative way.
+# These should never be used to store secrets, or data > 1MB. They are a way to decouple variables from an app.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+
+# Config data goes here
+data:
+  APP_COLOR: blue
+  APP_MODE: prod
+  # etc...

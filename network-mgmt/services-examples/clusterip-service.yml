@@ -1,0 +1,15 @@
+# Example of ClusterIP service definition file
+apiVersion: v1			# Mandatory
+kind: Service			# Mandatory
+metadata:				# Mandatory
+  name: backend
+
+spec:					# Mandatory
+  type: ClusterIP		# Mandatory - This is where the service type is defined
+  ports:
+    - port: 80			# Mandatory - Defines the port exposed on the service
+      targetPort: 80	# Mandatory - Defines the port where the backend is listening
+  selector:
+    app: myapp
+    type: backend		# These example fields must match the labels given to the backend pods. This facilitates pod to pod communication.
+      

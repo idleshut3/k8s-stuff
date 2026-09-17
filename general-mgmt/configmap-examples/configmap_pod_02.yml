@@ -1,0 +1,30 @@
+# In this example, the pod definition specifies only the ENVs it needs from the ConfigMap
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-app
+spec:
+  containers:
+    - name: example-app
+      image: my-cr/example-app:v0.0.1
+      ports:
+        - containerPort: 8080
+      env:
+        - name: APP_USER      # This sets the ENV var's name on the container. It does not need to match the name in the config map.
+          valueFrom:
+            configMapKeyRef:
+              name: my-config-map       # This must be the name set in the metadata of the ConfigMap
+              key: username             # This is the key we want to retrieve the value of. It will be mapped to the APP_USER env in the container.
+
+
+
+# Example ConfigMap for the pod definition above
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: my-config-map     # This matches the name field in the pod spec above
+# data:
+#   username: John          # This is the only env var that will be injected into the pod, not the one below
+#   age: 27
+#
+# immutable: true           # This is an optional field, which can be useful. Once this is set, the data field cannot be changed.
