@@ -1,0 +1,18 @@
+# Example of a ClusterRoleBinding definition file. As with the ClusterRole, this is cluster-wide, unlike the namespaced Role/RoleBinding
+# This resource binds the previously created ClusterRole to the user/group/etc.
+apiVersion: rbac.authorization.k8s.io
+kind: ClusterRoleBinding
+metadata:
+  name: pv-admins-crb
+
+# Here we specify the target to enforce the ACL
+subjects:
+  - kind: User
+    name: pv-admin-01
+    apiGroup: rbac.authorization.k8s.io
+
+# Here we reference the name of the cluster role created previously
+roleRef:
+  kind: ClusterRole
+  name: pv-admins-cr
+  apiGroup: rbac.authorization.k8s.io

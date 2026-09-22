@@ -1,0 +1,10 @@
+# Example ClusterRole definition file. Cluster roles are not namespaced, unlike standard roles/rolebindings.
+# The ClusterRole is then referenced in a ClusterRoleBinding to apply the ACLs
+apiVersion: rbac.authorization.k8s.io
+kind: ClusterRole
+metadata:
+  name: pv-admins-cr
+rules:
+  apiGroups: [""]
+  resources: ["persistentvolumes"]
+  verbs: ["list", "get", "watch", "create", "delete"]
