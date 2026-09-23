@@ -1,0 +1,35 @@
+# Example of a pod with security context settings. This is a basic example for the purpose of outlining the topic.
+# Note that this topic is extremely deep. See the k8s docs at https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sec-context-pod
+spec:
+
+  # Here we can set the pod level security context, such as user, group, fsgroup, and supplemental
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+    supplementalGroups: [4000]
+  containers:
+
+    # Container example with added privileges
+    - name: sec-context-demo-01
+      image: busybox:latest
+      command: ["sh", "-c", "sleep 3600"]
+
+      # If a specific privilege needs to be added, we must add it at the container level
+      securityContext:
+        capabilities:
+          add: ["NET_ADMIN"]
+
+    # Container example with restrictions
+    - name: sec-context-demo-02
+      image: busybox:latest
+      command: ["sh", "-c", "sleep 3600"]
+
+      # Alternatively, we can restrict privilege escalation through settings at the container level
+      securityContext:
+        allowPrivilegeEscalation: false
+      
