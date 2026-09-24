@@ -1,0 +1,41 @@
+# Example NetworkPolicy definition file
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-policy
+spec:
+  # Here we define the pods which the NetworkPolicy will apply to
+  podSelector:
+    matchLabels:
+      app: my-app
+
+  # Here we define the traffic type - Ingress, Egress, or both.
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      # There are 3 selector types: podSelector, namespaceSelector, and ipBlock
+      
+      # The following is an example of a logical AND rule, which states that ingress traffic is allowed if the label AND namespace match
+      - podSelector:
+          matchLabels:
+            app: some-other-app
+        namespaceSelector:
+          matchLabels:
+            name: some-ns
+      
+      # However, the following is a separate object in the array, due to the dash before podSelector.
+      # Because this is a separate object in the array, the network policy is evaluated as follows:
+      # Allow Ingress if: (podSelector: app=some-other-app && namespaceSelector: name=some-ns) || podSelector: app=some-other-other-app. Obviously, this can have major implications.
+      - podSelector:
+          matchLabels:
+            app: some-other-other-app
+      ports:
+        - protocol: TCP
+          port: 5555
+        - protocol: TCP
+          port: 6666
+        - protocol: UDP
+          port: 7777
+
