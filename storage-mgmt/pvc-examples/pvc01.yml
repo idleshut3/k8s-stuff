@@ -1,0 +1,33 @@
+# Example PersistentVolumeClaim definition file.
+# See the corresponding pv at ../pv-examples/pv01.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-01
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+
+---
+
+# Below is an example of how you'd utilize the storage in the pod spec
+#
+# ...
+#spec:
+#  containers:
+#    - name: pv-ct
+#      image: nginx
+#      ports:
+#        - containerPort: 80
+#      volumeMounts:
+#        - mountPath: "/usr/share/nginx/html"
+#          name: pv-01
+#  volumes:
+#    - name: pv-01
+#      persistentVolumeClaim:
+#        claimName: pvc-01
+

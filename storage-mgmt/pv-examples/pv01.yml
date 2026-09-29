@@ -1,0 +1,17 @@
+# Example PersistentVolume definition file. This demo uses local storage, which is not recommended for prod
+# See the corresponding pvc for this example at ../pvc-examples/pvc01.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-01
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
